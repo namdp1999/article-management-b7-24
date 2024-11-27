@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 
-export const typeDefs = gql`
+export const typeDefsArticle = gql`
   type Article {
     id: String,
     title: String,
@@ -15,17 +15,9 @@ export const typeDefs = gql`
     message: String
   }
 
-  type Category {
-    id: String,
-    title: String,
-    avatar: String
-  }
-
   type Query {
     getListArticle: [Article],
     getArticle(id: String): Article,
-    getListCategory: [Category],
-    getCategory(id: String): Category,
   }
 
   input ArticleInput {
@@ -35,17 +27,9 @@ export const typeDefs = gql`
     categoryId: String,
   }
 
-  input CategoryInput {
-    title: String,
-    avatar: String
-  }
-
   type Mutation {
     createArticle(article: ArticleInput): Article,
     deleteArticle(id: String): ResponseCode,
     updateArticle(id: String, article: ArticleInput): Article,
-    createCategory(category: CategoryInput): Category,
-    deleteCategory(id: String): ResponseCode,
-    updateCategory(id: String, category: CategoryInput): Category,
   }
 `;

@@ -6,7 +6,7 @@ import { connect } from "./config/database";
 connect();
 
 import { ApolloServer } from "apollo-server-express";
-import { typeDefs } from "./typeDefs";
+import { typeDefs } from "./typeDefs/index.typeDef"; 
 import { resolvers } from "./resolvers";
 
 const startServer = async () => {
