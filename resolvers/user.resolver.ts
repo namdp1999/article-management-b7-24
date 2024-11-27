@@ -39,6 +39,36 @@ export const resolversUser = {
         ...dataUser
       };
     },
+    loginUser: async (_, args) => {
+      const { email, password } = args.user;
+
+      const existUser = await User.findOne({
+        email: email,
+        deleted: false
+      });
     
+      if(!existUser) {
+        return {
+          code: "error",
+          message: "Email không tồn tại trong hệ thống!"
+        };
+      }
+    
+      if(md5(password) != existUser.password) {
+        return {
+          code: "error",
+          message: "Sai mật khẩu!"
+        };
+      }
+    
+      return {
+        code: "success",
+        message: "Đăng nhập thành công!",
+        id: existUser.id,
+        token: existUser.token,
+        fullName: existUser.fullName,
+        email: existUser.email,
+      }
+    }
   }
 };
