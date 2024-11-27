@@ -4,28 +4,23 @@ import md5 from "md5";
 
 export const resolversUser = {
   Query: {
-    getUser: async (_, args) => {
-      const { token } = args;
+    getUser: async (_, args, context) => {
+      if(context.req.verifyUser) {
+        const existUser = context.req.verifyUser;
 
-      const existUser = await User.findOne({
-        token: token,
-        deleted: false
-      });
-
-      if(!existUser) {
+        return {
+          code: "success",
+          message: "Thành công!",
+          id: existUser.id,
+          token: existUser.token,
+          fullName: existUser.fullName,
+          email: existUser.email,
+        }
+      } else {
         return {
           code: "error",
           message: "Token không hợp lệ!"
         };
-      }
-
-      return {
-        code: "success",
-        message: "Thành công!",
-        id: existUser.id,
-        token: existUser.token,
-        fullName: existUser.fullName,
-        email: existUser.email,
       }
     }
   },

@@ -11,7 +11,7 @@ export const typeDefsUser = gql`
   }
 
   type Query {
-    getUser(token: String): User,
+    getUser: User,
   }
 
   input RegisterUserInput {
