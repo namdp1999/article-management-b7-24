@@ -113,5 +113,17 @@ export const resolvers = {
 
       return record;
     },
+  },
+  Article: {
+    category: async (record) => {
+      const categoryId = record.categoryId;
+
+      const category = await Category.findOne({
+        _id: categoryId,
+        deleted: false
+      });
+
+      return category;
+    }
   }
 };
